@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from os import path
 from pathlib import Path
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,13 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
-    'djoser',
     'playground',
     'debug_toolbar',
     'store',
+    'store_custom',
     'tags',
-    'likes',
-    'core',
+    'likes'
 ]
 
 MIDDLEWARE = [
@@ -92,12 +91,11 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'storefront2',
-        'USER': 'postgres',
-        'PASSWORD': 'thepassword',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': path.join(BASE_DIR,'db.sqlite3'),
+        # 'HOST': 'localhost',
+        # 'USER': 'root',
+        # 'PASSWORD': 'MyPassword'
     }
 }
 
@@ -145,23 +143,9 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING': False,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    'COERCE_DECIMAL_TO_STRING' : False
 }
 
-AUTH_USER_MODEL = 'core.User'
-
-DJOSER = {
-    'SERIALIZERS': {
-        'user_create': 'core.serializers.UserCreateSerializer',
-        'current_user': 'core.serializers.UserSerializer',
-    }
-}
-
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
-}
+CELERY_BROKER_URL = 'redis://localhost:6379/1'

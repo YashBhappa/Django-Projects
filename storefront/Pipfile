@@ -6,16 +6,17 @@ name = "pypi"
 [packages]
 django = "*"
 django-debug-toolbar = "*"
-mysqlclient = "*"
 djangorestframework = "*"
-drf-nested-routers = "*"
 django-filter = "*"
+smtp4dev = "*"
+celery = "*"
+redis = "*"
+locust = "*"
 djoser = "*"
-djangorestframework-simplejwt = "*"
-psycopg2 = "*"
-
-[dev-packages]
-autopep8 = "*"
+django-silk = "*"
+python-redis = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "2.7"
+
+[dev-packages]
